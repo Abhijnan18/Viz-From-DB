@@ -66,10 +66,10 @@ def studentTableCreation(csv_file, csv_file_path):
 
     # Connect to MySQL database
     db_connection = mysql.connector.connect(
-        host='Abhijnans-MacBook-Pro.local',
+        host='local',
         user='root',
-        password='189@2003ihba',
-        database='temp_class2'
+        password='1123',
+        database='temp_class'
     )
 
     # Create a cursor
@@ -129,10 +129,10 @@ def facultyTableInsertion(csv_file_path):
 
     # Connect to MySQL database
     db_connection = mysql.connector.connect(
-        host='Abhijnans-MacBook-Pro.local',
+        host='local',
         user='root',
-        password='189@2003ihba',
-        database='temp_class2'
+        password='1123',
+        database='temp_class'
     )
 
     # Create a cursor
