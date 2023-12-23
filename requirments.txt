@@ -1,0 +1,11 @@
+# General libraries
+pandas==1.3.3
+numpy==1.21.2
+matplotlib==3.4.3
+seaborn==0.11.2
+plotly==5.1.0
+
+# Jupyter Notebook specific
+jupyter==1.0.0
+
+# Specific versions based on snippet requirements
