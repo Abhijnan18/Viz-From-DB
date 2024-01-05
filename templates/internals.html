@@ -1,0 +1,31 @@
+<!-- templates/internals.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internals Marks Statistics</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='internals.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="doughnut-container">
+            {% for chart_html in charts %}
+                <div class="chart-container">
+                    {{ chart_html | safe }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="box-container">
+            {{ box_html | safe }}
+        </div>
+
+        <div class="correlation-container">
+            {{ corr_html | safe }}
+        </div>
+    </div>
+</body>
+</html>
