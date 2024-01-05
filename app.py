@@ -29,7 +29,13 @@ def index():
     pie_chart_attendance_status = px.pie(
         names=attendance_status_counts.index,
         values=attendance_status_counts.values,
-        title='Pie Chart for Class Attendance Status'
+        title='Pie Chart for Class Attendance Status',
+    )
+
+    # Remove "Save as PNG" and Plotly logo
+    pie_chart_attendance_status.update_layout(
+        showlegend=True,  # Set to False if you want to hide the legend
+        images=[],  # Remove any images (including Plotly logo)
     )
 
     # Save the plot as HTML
