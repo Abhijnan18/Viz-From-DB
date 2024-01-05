@@ -1,6 +1,7 @@
+# app.py
 from flask import Flask, render_template
 import pandas as pd
-import plotly.express as px
+import plotly.graph_objects as go
 import mysql.connector
 
 app = Flask(__name__)
@@ -25,21 +26,19 @@ def index():
     attendance_status_bins = [0, 75, 90, 100]
     attendance_status_counts = pd.cut(df['ATTENDANCE PERCENTAGE'], bins=attendance_status_bins, labels=attendance_status_labels).value_counts()
 
-    # Create pie chart using Plotly Express
-    pie_chart_attendance_status = px.pie(
-        names=attendance_status_counts.index,
-        values=attendance_status_counts.values,
+    # Create pie chart using Plotly
+    fig = go.Figure(data=[go.Pie(labels=attendance_status_counts.index, values=attendance_status_counts.values)])
+    
+    # Update layout for a visually appealing plot
+    fig.update_layout(
         title='Pie Chart for Class Attendance Status',
-    )
-
-    # Remove "Save as PNG" and Plotly logo
-    pie_chart_attendance_status.update_layout(
-        showlegend=True,  # Set to False if you want to hide the legend
-        images=[],  # Remove any images (including Plotly logo)
+        margin=dict(l=20, r=20, t=50, b=20),  # Adjust margins for better layout
+        paper_bgcolor='rgba(0,0,0,0)',  # Make the background transparent
+        plot_bgcolor='rgba(0,0,0,0)',  # Make the plot area background transparent
     )
 
     # Save the plot as HTML
-    plot_html = pie_chart_attendance_status.to_html(full_html=False)
+    plot_html = fig.to_html(full_html=False)
 
     # Render the HTML template with the plot
     return render_template('index.html', plot_html=plot_html)
