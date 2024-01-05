@@ -26,6 +26,7 @@ df = pd.read_sql_query(query, db_connection)
 
 # Define the route for the webpage
 @app.route('/')
+@app.route('/attendence_charts')
 def index():
     # Assuming df is your DataFrame with 'ATTENDANCE PERCENTAGE' column
     labels_categories = ['<75%', '75-85%', '>85%']
@@ -125,6 +126,50 @@ def attendance_table():
 
     # Render the HTML template with the data
     return render_template('table.html', data=data, data_below_85=data_below_85, data_below_75=data_below_75)
+# Create a new route for internals marks statistics
+@app.route('/internals')
+def internals():
+    # Assuming df has columns for "IA I", "IA II", and "IA III"
+    ia_columns = ["IA I", "IA II", "IA III"]
+
+    charts = []
+
+    for ia_column in ia_columns:
+        # Check if the IA column has NaN, empty, or zero values
+        if df[ia_column].isnull().all() or (df[ia_column] == 0).all():
+            print(f"Skipping {ia_column} as it is Empty/filled with zeros.")
+            continue
+
+        # Create a new column indicating the performance category for each IA
+        df[f"{ia_column} Category"] = pd.cut(df[ia_column], bins=[-1, 0, 14, 20, 30, 40],
+                                             labels=["Absent", "Fail", "<20", "20-30", "30-40"])
+
+        # Create a pie chart for the IA category distribution
+        fig = px.pie(df, names=f"{ia_column} Category", title=f"{ia_column} Category Distribution",
+                     hole=0.3, labels={'<20': '< 20', '30-40': '30 - 40', '20-30': '20 - 30'})
+
+        # Convert the plot to HTML
+        chart_html = fig.to_html(full_html=False)
+
+        charts.append(chart_html)
+
+    # Visualization 2: Box plot of IA scores
+    melted_df = pd.melt(df[['IA I', 'IA II', 'IA III']], var_name='IA Type', value_name='IA Score')
+    box_fig = px.box(melted_df, x='IA Type', y='IA Score', title='Boxplot of IA Scores')
+
+    # Convert the plot to HTML
+    box_html = box_fig.to_html(full_html=False)
+
+    # Visualization 3: Correlation heatmap for IA Marks and Attendance
+    correlation_columns = ["IA I", "IA II", "IA III", "ATTENDANCE PERCENTAGE"]
+    corr_fig = px.imshow(df[correlation_columns].corr(), x=correlation_columns, y=correlation_columns,
+                         title='Correlation Heatmap for IA Marks and Attendance')
+
+    # Convert the plot to HTML
+    corr_html = corr_fig.to_html(full_html=False)
+
+    # Render the HTML template with the chart data
+    return render_template('internals.html', charts=charts, box_html=box_html, corr_html=corr_html)
 
 
 
