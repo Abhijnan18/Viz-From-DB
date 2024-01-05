@@ -1,3 +1,4 @@
+<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Status Pie Chart</title>
-    <!-- Add any additional styles or scripts here -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div style="width: 500px;"> <!-- Set the width of the container -->
+    <div class="container">
         {{ plot_html | safe }}
     </div>
 </body>

@@ -9,3 +9,9 @@ plotly==5.1.0
 jupyter==1.0.0
 
 # Specific versions based on snippet requirements
+
+#
+host='Abhijnans-MacBook-Pro.local',
+        user='root',
+        password='189@2003ihba',
+        database='temp_class'
