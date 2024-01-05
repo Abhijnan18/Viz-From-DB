@@ -3,12 +3,24 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f0f0;
     margin: 0;
-    padding: 0;
+    padding: 10px;
+}
+
+.body {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0px;
+}
+
+.body > div {
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 }
 
 .container {
-    width: 600px;
-    margin: 20px auto;
+    width: 900px;
+    margin: 20px;
     background-color: #fff;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

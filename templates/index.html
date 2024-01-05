@@ -5,16 +5,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance Status Pie Chart</title>
+    <title>Attendance Status Plots</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <div id="plotly-chart">
-            {{ plot_html | safe }}
+     <div class="body">
+
+    <div class="container chart-1">
+        <div id="plotly-chart1">
+            {{ pie_chart_html | safe }}
         </div>
     </div>
-    
+    <div class="container chart-3">
+        <div id="plotly-chart3">
+            {{ additional_pie_chart_html | safe }}
+        </div>
+    </div>
+    <div class="container chart-2">      
+        <div id="plotly-chart2">
+            {{ bar_chart_html | safe }}
+        </div>
+    </div>
+    <div class="container chart-4">      
+        <div id="plotly-chart4">
+            {{ histogram_html | safe }}
+        </div>
+    </div>
+    </div>
 </body>
 </html>
