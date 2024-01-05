@@ -6,14 +6,85 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Table</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
 </head>
 <body>
     <div class="container">
-        <div id="plotly-table">
-            {{ table_html | safe }}
-        </div>
+        <!-- Table for all students -->
+        <table>
+            <thead>
+                <tr>
+                    <th>USN/Sr.no</th>
+                    <th>Students Name</th>
+                    <th>Attendance Percentage</th>
+                    <th>Total Classes Held</th>
+                    <th>Total Classes Attended</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                        <td>{{ row[4] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <!-- Table for students with attendance less than 85% -->
+        <table>
+            <thead>
+                <tr>
+                    <th>USN/Sr.no</th>
+                    <th>Students Name</th>
+                    <th>Attendance Percentage</th>
+                    <th>Total Classes Held</th>
+                    <th>Total Classes Attended</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data_below_85 %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                        <td>{{ row[4] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <!-- Table for students with attendance less than 75% -->
+        <table>
+            <thead>
+                <tr>
+                    <th>USN/Sr.no</th>
+                    <th>Students Name</th>
+                    <th>Attendance Percentage</th>
+                    <th>Total Classes Held</th>
+                    <th>Total Classes Attended</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data_below_75 %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                        <td>{{ row[4] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

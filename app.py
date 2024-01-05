@@ -15,6 +15,11 @@ db_connection = mysql.connector.connect(
     database='temp_class2'
 )
 
+
+# Create a cursor to interact with the database
+cursor = db_connection.cursor()
+
+
 # Fetch data from the database
 query = "SELECT * FROM `CSE A-3`"
 df = pd.read_sql_query(query, db_connection)
@@ -101,6 +106,27 @@ def index():
 
     # Render the HTML template with the plots
     return render_template('index.html', pie_chart_html=pie_chart_html, bar_chart_html=bar_chart_html, additional_pie_chart_html=additional_pie_chart_html, histogram_html=histogram_html)
+
+
+# Create a new route for the table
+@app.route('/attendance_table')
+def attendance_table():
+    # Fetch data for all students
+    cursor.execute("SELECT `SR. NO`, `STUDENTS NAME`, `ATTENDANCE PERCENTAGE`, `TOTAL HELD`, `TOTAL PRESENT` FROM `CSE A-3`")
+    data = cursor.fetchall()
+
+    # Fetch data for students with attendance less than 85%
+    cursor.execute("SELECT `SR. NO`, `STUDENTS NAME`, `ATTENDANCE PERCENTAGE`, `TOTAL HELD`, `TOTAL PRESENT` FROM `CSE A-3` WHERE `ATTENDANCE PERCENTAGE` < 85")
+    data_below_85 = cursor.fetchall()
+
+    # Fetch data for students with attendance less than 75%
+    cursor.execute("SELECT `SR. NO`, `STUDENTS NAME`, `ATTENDANCE PERCENTAGE`, `TOTAL HELD`, `TOTAL PRESENT` FROM `CSE A-3` WHERE `ATTENDANCE PERCENTAGE` < 75")
+    data_below_75 = cursor.fetchall()
+
+    # Render the HTML template with the data
+    return render_template('table.html', data=data, data_below_85=data_below_85, data_below_75=data_below_75)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
