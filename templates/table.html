@@ -9,9 +9,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
 </head>
 <body>
+    <div class="table">
+
     <div class="container">
         <!-- Table for all students -->
         <table>
+            <h1>Students Attendance Table</h>
             <thead>
                 <tr>
                     <th>USN/Sr.no</th>
@@ -38,6 +41,7 @@
     <div class="container">
         <!-- Table for students with attendance less than 85% -->
         <table>
+            <h1>Students with Attendance Below 85%</h>
             <thead>
                 <tr>
                     <th>USN/Sr.no</th>
@@ -64,6 +68,7 @@
     <div class="container">
         <!-- Table for students with attendance less than 75% -->
         <table>
+            <h1>Students with Attendance Below 75%</h>
             <thead>
                 <tr>
                     <th>USN/Sr.no</th>
@@ -85,6 +90,8 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+
     </div>
 </body>
 </html>
